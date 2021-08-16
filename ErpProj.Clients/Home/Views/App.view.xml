@@ -1,5 +1,8 @@
 <mvc:View
+   controllerName="ErpProj.Home.Views.App"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc" >
-   
+     <Button
+      text="Say Hello"
+      press=".onShowHello"/>
 </mvc:View>
