@@ -6,7 +6,6 @@ sap.ui.define([
     "use strict";
     return UIComponent.extend("ErpProj.Home.Component", {
         metadata: {
-            interfaces: ["sap.ui.core.IAsyncContentCreation"],
             manifest: "json"
         },
         init: function () {
