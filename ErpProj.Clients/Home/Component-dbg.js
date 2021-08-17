@@ -6,15 +6,8 @@ sap.ui.define([
     "use strict";
     return UIComponent.extend("ErpProj.Home.Component", {
         metadata: {
-            "interfaces": [
-                "sap.ui.core.IAsyncContentCreation"
-            ],
-            "rootView": {
-                "viewName": "ErpProj.Home.Views.App",
-                "type": "XML",
-                /*"async": true, // implicitly set via the sap.ui.core.IAsyncContentCreation interface*/
-                "id": "app"
-            }
+            interfaces: ["sap.ui.core.IAsyncContentCreation"],
+            manifest: "json"
         },
         init: function () {
             // call the init function of the parent
