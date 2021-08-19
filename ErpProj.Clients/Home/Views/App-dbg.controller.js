@@ -4,5 +4,8 @@ sap.ui.define([
 ], function (Controller, MessageToast) {
     "use strict";
     return Controller.extend("ErpProj.Home.Views.App", {
+        onMenuButtonPress: function() {
+            
+        }
     });
 });

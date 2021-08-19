@@ -1,18 +1,23 @@
-
-<mvc:View
-   controllerName="ErpProj.Home.Views.App"
-   xmlns="sap.m"
+<mvc:View controllerName="ErpProj.Home.Views.App"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
 	xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true">
-	<Shell>
-		<App class="myAppDemoWT">
-			<pages>
-				<Page title="{i18n>homePageTitle}">
-					<content>
-						<mvc:XMLView viewName="ErpProj.Home.Views.HelloPanel"/>
-					</content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+	xmlns:tnt="sap.tnt" displayBlock="true">
+
+	<tnt:ToolPage>
+		<tnt:header>
+			<f:ShellBar title="{i18n>appTitle}" 
+				secondTitle="{i18n>appDescription}"
+				showMenuButton="true"
+				homeIcon="./resources/sap/ui/documentation/sdk/images/logo_ui5.png"
+				showCopilot="true"
+				showNotifications="true"
+				menuButtonPressed="onMenuButtonPress"
+				showProductSwitcher="true"
+				notificationsNumber="2">
+			</f:ShellBar>
+		</tnt:header>
+	</tnt:ToolPage>
+
+
 </mvc:View>
