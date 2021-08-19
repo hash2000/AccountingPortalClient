@@ -25,6 +25,8 @@ sap.ui.define([
                 bundleName: "ErpProj.Home.i18n.i18n"
             });
             this.setModel(i18nModel, "i18n");
+
+            this.getRouter().initialize();
         }
     });
 });

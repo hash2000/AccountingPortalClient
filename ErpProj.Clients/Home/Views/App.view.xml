@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" displayBlock="true">
 
-	<tnt:ToolPage>
+	<tnt:ToolPage id="toolPage">
 
 		<!--
 			Панель управления в заголовке
@@ -57,8 +57,8 @@
 		<!--
 			Область отображения модулей
 		-->
-		<tnt:mainContents>
-			<NavContainer id="pageContainer" initialPage="page1">
+		<tnt:mainContents id="NavigationPagesContainer">
+			<!-- <NavContainer id="pageContainer" initialPage="page1">
 				<pages>
 					<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
 						<Text text="This is the root page"/>
@@ -73,7 +73,7 @@
 						<Text text="This is the root page of the second element"/>
 					</ScrollContainer>
 				</pages>
-			</NavContainer>
+			</NavContainer> -->
 		</tnt:mainContents>		
 
 	</tnt:ToolPage>
