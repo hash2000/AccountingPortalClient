@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" displayBlock="true">
 
-	<tnt:ToolPage id="toolPage">
+	<tnt:ToolPage id="toolPage" sideExpanded="false">
 
 		<!--
 			Панель управления в заголовке
@@ -18,7 +18,7 @@
 				showNotifications="true"
 				menuButtonPressed="onMenuButtonPress"
 				showProductSwitcher="true"
-				notificationsNumber="2">
+				notificationsNumber="0">
 				<f:menu>
 					<Menu>
 						<MenuItem text="Flight booking" icon="sap-icon://flight" />
@@ -47,7 +47,9 @@
 				</tnt:NavigationList>
 				<tnt:fixedItem>
 					<tnt:NavigationList items="{path: '/fixedNavigation'}">
-						<tnt:NavigationListItem text="{title}" icon="{icon}">
+						<tnt:NavigationListItem text="{title}" icon="{icon}" enabled="{enabled}" expanded="{expanded}" items="{items}" key="{key}">
+							<tnt:NavigationListItem text="{title}" key="{key}" enabled="{enabled}">
+							</tnt:NavigationListItem>
 						</tnt:NavigationListItem>
 					</tnt:NavigationList>
 				</tnt:fixedItem>
@@ -57,9 +59,9 @@
 		<!--
 			Область отображения модулей
 		-->
-		<tnt:mainContents id="NavigationPagesContainer">
-			<!-- <NavContainer id="pageContainer" initialPage="page1">
-				<pages>
+		<tnt:mainContents>
+			<NavContainer id="NavigationPagesContainer">
+			<!-- 	<pages>
 					<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
 						<Text text="This is the root page"/>
 					</ScrollContainer>
@@ -72,8 +74,8 @@
 					<ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
 						<Text text="This is the root page of the second element"/>
 					</ScrollContainer>
-				</pages>
-			</NavContainer> -->
+				</pages>-->
+			</NavContainer> 
 		</tnt:mainContents>		
 
 	</tnt:ToolPage>

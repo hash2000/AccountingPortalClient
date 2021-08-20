@@ -51,30 +51,29 @@
             ]
         },
         "routing": {
+
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "viewPath": "ErpProj.Modules",
+                "viewPath": "ErpProj/Modules",
                 "controlId": "NavigationPagesContainer",
                 "controlAggregation": "pages"
             },
             "routes": [
                 {
                     "pattern": "",
-                    "name": "TestPage",
-                    "target": "TestPage"
+                    "name": "Overview",
+                    "target": "Overview"
                 }
             ],
             "targets": {
-                "TestPage": {
-                    "viewId": "TestPage/Overview",
-                    "viewName": "TestPage/Overview"
-                },
-                "detail": {
-                    "viewId": "detail",
-                    "viewName": "Detail"
+                "Overview": {
+                    "viewId": "Overview",
+                    "viewName": "Overview"
                 }
             }
+
+
         }
     }
 }
