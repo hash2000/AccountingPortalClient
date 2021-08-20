@@ -14,7 +14,7 @@ sap.ui.define([
     new ComponentContainer({
         name: "ErpProj.Home",
         settings: {
-            id: "walkthrough"
+            id: "ErpProjSettings"
         },
         async: true
     }).placeAt("content");

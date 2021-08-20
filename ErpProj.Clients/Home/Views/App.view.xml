@@ -28,9 +28,6 @@
 				<f:profile>
 					<Avatar initials="UI"/>
 				</f:profile>
-				<f:searchManager>
-					<f:SearchManager/>
-				</f:searchManager>
 			</f:ShellBar>
 		</tnt:header>
 
@@ -47,9 +44,7 @@
 				</tnt:NavigationList>
 				<tnt:fixedItem>
 					<tnt:NavigationList items="{path: '/fixedNavigation'}">
-						<tnt:NavigationListItem text="{title}" icon="{icon}" enabled="{enabled}" expanded="{expanded}" items="{items}" key="{key}">
-							<tnt:NavigationListItem text="{title}" key="{key}" enabled="{enabled}">
-							</tnt:NavigationListItem>
+						<tnt:NavigationListItem text="{title}" icon="{icon}" enabled="{enabled}">
 						</tnt:NavigationListItem>
 					</tnt:NavigationList>
 				</tnt:fixedItem>

@@ -6,31 +6,21 @@
             "icon": "sap-icon://employee",
             "expanded": true,
             "key": "root1",
-            "items": [
-                {
-                    "title": "Child Item 1",
-                    "key": "page1"
-                },
-                {
-                    "title": "Child Item 2",
-                    "key": "page2",
-                    "items": {
-                        "title": "page2_page1",
-                        "key": "page2_page1"
-                    }
-                }
-            ]
-        }
-    ],
-    "fixedNavigation": [
-        {
-            "title": "Конфигурация портала",
-            "icon": "sap-icon://action-settings",
-            "expanded": false,
             "items": [{
-                "title": "Пользователи",
-                "key": "Configurations/Users"
+                "title": "Child Item 1",
+                "key": "page1"
+            }, {
+                "title": "Child Item 2",
+                "key": "page2",
+                "items": {
+                    "title": "page2_page1",
+                    "key": "page2_page1"
+                }
             }]
         }
-    ]
+    ],
+    "fixedNavigation": [{
+            "title": "Настройки",
+            "icon": "sap-icon://action-settings"
+    }]
 }
