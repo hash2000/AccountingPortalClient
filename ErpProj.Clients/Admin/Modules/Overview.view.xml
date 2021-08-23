@@ -3,14 +3,6 @@
 		xmlns="sap.m"
 		xmlns:mvc="sap.ui.core.mvc">
 	<Page title="{i18n>homePageTitle}">
-		<!-- <headerContent>
-			<Button
-					icon="sap-icon://hello-world"
-					press=".onOpenDialog"/>
-		</headerContent> -->
-		<content>
-			<mvc:XMLView viewName="ErpProj.Modules.GroupsAndRoles.GroupsAndRoles"/>
-			<mvc:XMLView viewName="ErpProj.Modules.MenuItems.MenuItems"/>
-		</content>
+		
 	</Page>
 </mvc:View>

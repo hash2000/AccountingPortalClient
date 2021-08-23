@@ -1,0 +1,7 @@
+<mvc:View
+    controllerName="ErpProj.Modules.Users.Users"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+    <Button text="test users" />
+
+</mvc:View>

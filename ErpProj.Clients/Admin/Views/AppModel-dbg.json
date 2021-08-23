@@ -4,20 +4,20 @@
         "title": "Пользователи",
         "icon": "sap-icon://employee",
         "expanded": true,
-        "key": "AdminUsers"
+        "key": "Users"
     }, {
-        "title": "Администрирование",
+        "title": "Портал",
         "icon": "sap-icon://menu",
         "expanded": true,
-        "key": "AdminMenu",
+        "key": "Overview",
         "items": [{
             "title": "Узлы меню",
             "icon": "sap-icon://account",
-            "key": "AdminMenuItems"
+            "key": "MenuItems"
         }, {
             "title": "Группы и роли",
             "icon": "sap-icon://group",
-            "key": "AdminGroupsAndRoles"
+            "key": "GroupsAndRoles"
         }]
     }],
     "fixedNavigation": [{

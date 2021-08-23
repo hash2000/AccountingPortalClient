@@ -15,18 +15,21 @@ sap.ui.define([
             this.getView().setModel(this.oModel);
         },
 
-        onToggleOpenState: function () {
+        onAuthorizationPress: function () {
             
+
         },
-        
+
         onItemSelect: function (oEvent) {
-            var item = oEvent.getParameter('item');
-            this.byId("pageContainer").to(this.getView().createId(item.getKey()));
+            var item = oEvent.getParameter('item'),
+                itemKey = item.getKey();
+            var owner = this.getOwnerComponent(),
+                router = owner.getRouter();
+            router.navTo(itemKey);
         },
         
         onMenuButtonPress: function () {
             var toolPage = this.byId("toolPage");
-
             toolPage.setSideExpanded(!toolPage.getSideExpanded());
         }
     });

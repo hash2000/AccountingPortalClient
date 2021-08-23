@@ -2,5 +2,6 @@
     controllerName="ErpProj.Modules.MenuItems.MenuItems"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc">
+    <Button text="test menuitems" />
 
 </mvc:View>

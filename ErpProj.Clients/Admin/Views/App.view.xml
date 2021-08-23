@@ -19,14 +19,8 @@
 				menuButtonPressed="onMenuButtonPress"
 				showProductSwitcher="false"
 				notificationsNumber="0">
-				<f:menu>
-					<Menu>
-						<MenuItem text="Flight booking" icon="sap-icon://flight" />
-						<MenuItem text="Car rental" icon="sap-icon://car-rental" />
-					</Menu>
-				</f:menu>
 				<f:profile>
-					<Avatar initials="UI"/>
+					<Avatar initials="UI" press=".onAuthorizationPress"/>
 				</f:profile>
 			</f:ShellBar>
 		</tnt:header>
@@ -56,20 +50,6 @@
 		-->
 		<tnt:mainContents>
 			<NavContainer id="NavigationPagesContainer">
-			<!-- 	<pages>
-					<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
-						<Text text="This is the root page"/>
-					</ScrollContainer>
-					<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
-						<Text text="This is the first page"/>
-					</ScrollContainer>
-					<ScrollContainer id="page2" horizontal="false" vertical="true" height="100%">
-						<Text text="Lorem ipsum dolor "/>
-					</ScrollContainer>
-					<ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
-						<Text text="This is the root page of the second element"/>
-					</ScrollContainer>
-				</pages>-->
 			</NavContainer> 
 		</tnt:mainContents>		
 

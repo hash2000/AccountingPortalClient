@@ -59,17 +59,44 @@
                 "controlId": "NavigationPagesContainer",
                 "controlAggregation": "pages"
             },
-            "routes": [
-                {
+
+
+            "routes": [{
                     "pattern": "",
                     "name": "Overview",
                     "target": "Overview"
-                }
-            ],
+            }, {
+                "pattern": "MenuItems",
+                "name": "MenuItems",
+                "target": "MenuItems"
+            }, {
+                "pattern": "GroupsAndRoles",
+                "name": "GroupsAndRoles",
+                "target": "GroupsAndRoles"
+            }, {
+                "pattern": "Users",
+                "name": "Users",
+                "target": "Users"
+            }],
+
+
             "targets": {
                 "Overview": {
                     "viewId": "Overview",
                     "viewName": "Overview"
+                }, 
+                "MenuItems": {
+                    "viewId": "MenuItems",
+                    "viewName": "MenuItems.MenuItems"
+                },
+                "GroupsAndRoles": {
+                    "viewId": "GroupsAndRoles",
+                    "viewName": "GroupsAndRoles.GroupsAndRoles"
+                }
+                ,
+                "Users": {
+                    "viewId": "Users",
+                    "viewName": "Users.Users"
                 }
             }
 
