@@ -7,10 +7,10 @@
 			<Button
 					icon="sap-icon://hello-world"
 					press=".onOpenDialog"/>
-		</headerContent>
+		</headerContent> -->
 		<content>
-			<mvc:XMLView viewName="sap.ui.demo.walkthrough.view.HelloPanel"/>
-			<mvc:XMLView viewName="sap.ui.demo.walkthrough.view.InvoiceList"/>
-		</content> -->
+			<mvc:XMLView viewName="ErpProj.Modules.GroupsAndRoles.GroupsAndRoles"/>
+			<mvc:XMLView viewName="ErpProj.Modules.MenuItems.MenuItems"/>
+		</content>
 	</Page>
 </mvc:View>

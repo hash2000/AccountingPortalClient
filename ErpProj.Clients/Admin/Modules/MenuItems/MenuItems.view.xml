@@ -1,0 +1,6 @@
+<mvc:View
+    controllerName="ErpProj.Modules.MenuItems.MenuItems"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+</mvc:View>
