@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" displayBlock="true">
 
-	<tnt:ToolPage id="toolPage" sideExpanded="false">
+	<tnt:ToolPage id="toolPage" sideExpanded="true">
 
 		<!--
 			Панель управления в заголовке
@@ -17,7 +17,7 @@
 				showCopilot="true"
 				showNotifications="true"
 				menuButtonPressed="onMenuButtonPress"
-				showProductSwitcher="true"
+				showProductSwitcher="false"
 				notificationsNumber="0">
 				<f:menu>
 					<Menu>

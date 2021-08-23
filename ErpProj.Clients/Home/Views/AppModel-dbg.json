@@ -1,24 +1,25 @@
 {
-    "selectedKey": "page1",
-    "navigation": [
-        {
-            "title": "Root Item",
-            "icon": "sap-icon://employee",
-            "expanded": true,
-            "key": "root1",
-            "items": [{
-                "title": "Child Item 1",
-                "key": "page1"
-            }, {
-                "title": "Child Item 2",
-                "key": "page2",
-                "items": {
-                    "title": "page2_page1",
-                    "key": "page2_page1"
-                }
-            }]
-        }
-    ],
+    "selectedKey": "Admin",
+    "navigation": [{
+        "title": "Пользователи",
+        "icon": "sap-icon://employee",
+        "expanded": true,
+        "key": "AdminUsers"
+    }, {
+        "title": "Администрирование",
+        "icon": "sap-icon://menu",
+        "expanded": true,
+        "key": "AdminMenu",
+        "items": [{
+            "title": "Узлы меню",
+            "icon": "sap-icon://account",
+            "key": "AdminMenuItems"
+        }, {
+            "title": "Группы и роли",
+            "icon": "sap-icon://group",
+            "key": "AdminGroupsAndRoles"
+        }]
+    }],
     "fixedNavigation": [{
             "title": "Настройки",
             "icon": "sap-icon://action-settings"
