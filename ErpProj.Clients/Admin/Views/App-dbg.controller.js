@@ -5,8 +5,12 @@ sap.ui.define([
     'sap/m/Popover',
     'sap/m/Button',
     'sap/m/library'
-], function (Device, Controller, JSONModel, Popover, Button, mobileLibrary) {
+], function (Device, Controller, JSONModel, Popover, Button, library) {
     "use strict";
+
+    var ButtonType = library.ButtonType,
+        PlacementType = library.PlacementType;
+    
     return Controller.extend("ErpProj.Home.Views.App", {
 
         onInit: function () {
@@ -15,9 +19,22 @@ sap.ui.define([
             this.getView().setModel(this.oModel);
         },
 
-        onAuthorizationPress: function () {
-            
+        onAuthorizationPress: function (event) {
+            var oPopover = new Popover({
+                showHeader: false,
+                placement: PlacementType.Bottom,
+                content: [
+                    new Button({
+                        text: 'Вход',
+                        type: ButtonType.Transparent
+                    })
+                ]
+            }).addStyleClass('sapMOTAPopover sapTntToolHeaderPopover');
 
+            var oSender = event.getSource();
+
+
+            oPopover.openBy(oSender);
         },
 
         onItemSelect: function (oEvent) {

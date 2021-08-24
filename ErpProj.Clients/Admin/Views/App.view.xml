@@ -20,7 +20,7 @@
 				showProductSwitcher="false"
 				notificationsNumber="0">
 				<f:profile>
-					<Avatar initials="UI" press=".onAuthorizationPress"/>
+					<Avatar initials="?" press=".onAuthorizationPress"/>
 				</f:profile>
 			</f:ShellBar>
 		</tnt:header>
