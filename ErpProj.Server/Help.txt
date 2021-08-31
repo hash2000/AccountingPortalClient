@@ -1,0 +1,13 @@
+Packages:
+ django
+ djangorestframework-jwt - поддержка jwt 
+ psycopg2 - PostgreSQL connector
+
+New project 'Admin'
+ django-admin startproject Admin
+
+Run debug server
+ python manage.py runserver
+
+Django jwt-авторизация
+ https://code.tutsplus.com/ru/tutorials/how-to-authenticate-with-jwt-in-django--cms-30460
