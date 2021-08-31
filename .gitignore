@@ -29,7 +29,7 @@ _ReSharper*/
 *.vssscc
 $tf*/
 
-
+*.pyc
 
 #ignore thumbnails created by windows
 #Ignore files build by Visual Studio

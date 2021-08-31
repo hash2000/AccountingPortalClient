@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'Admin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'auth',
+        'NAME': 'Dispatcher',
         'USER': 'DispatcherWeb',
         'PASSWORD': 'DispatcherWeb',
         'HOST': 'localhost',
