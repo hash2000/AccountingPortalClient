@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+    <Dialog title="Вход в систему">
+        <l:VerticalLayout class="sapUiContentPadding" width="100%">
+            <Input
+                id="usernameInput"
+                placeholder="Введите имя польователя"
+                value="{/username}" />
+            <Input
+                id="passwordInput"
+                type="Password"
+                placeholder="Введите пароль"
+                value="{/password}" />
+        </l:VerticalLayout>
+        <buttons>
+            <Button text="Ok" width="100px" press="onLoginButtonOkPress" />
+            <Button text="Отмена" width="100px" press="onLoginButtonCancelPress" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
