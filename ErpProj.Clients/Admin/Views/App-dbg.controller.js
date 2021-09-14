@@ -26,14 +26,22 @@ sap.ui.define([
             me._loginDialogFragment.then(function (oDialog) {
                 var oModel = oDialog.getModel(),
                     oData = oModel.getData();
-                
-                // var request = new ODataModel({
-                //     requestUri: "http://localhost:6001/security/admin/auth/",
-                //     method: "POST",
-                //     metadataUrlParams: oData,
-                //     synchronizationMode: "None"
-                // });
-                
+
+                var authModel = new JSONModel();
+                authModel.loadData(
+                    "http://localhost:6001/security/admin/auth/", oData, true, "POST"
+                ).then(function (result) {
+                    console.log(result);
+                }).catch(function (result) {
+                    console.log(result);
+                });
+                //var request = new ODataModel({
+                //    requestUri: "http://localhost:6001/security/admin/auth/",
+                //    method: "POST",
+                //    metadataUrlParams: oData,
+                //    synchronizationMode: "None"
+                //});
+
                 oDialog.close();
             });
         },
@@ -48,7 +56,7 @@ sap.ui.define([
             var buttons = [];
             var me = this;
             var oView = me.getView();
-            
+
             buttons.push(new Button({
                 text: 'Вход',
                 type: ButtonType.Transparent,
