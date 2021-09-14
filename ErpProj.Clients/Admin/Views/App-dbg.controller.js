@@ -6,7 +6,7 @@ sap.ui.define([
     'sap/m/Button',
     'sap/m/library',
     'sap/ui/core/Fragment',
-    'sap/ui/model/odata/v2/ODataModel'
+    'sap/ui/model/odata/v4/ODataModel'
 ], function (Device, Controller, JSONModel, Popover, Button, library, Fragment, ODataModel) {
     "use strict";
 
@@ -27,7 +27,12 @@ sap.ui.define([
                 var oModel = oDialog.getModel(),
                     oData = oModel.getData();
                 
-                // sap.ui.require.toUrl("localhost:6001/security/admin/auth/");
+                // var request = new ODataModel({
+                //     requestUri: "http://localhost:6001/security/admin/auth/",
+                //     method: "POST",
+                //     metadataUrlParams: oData,
+                //     synchronizationMode: "None"
+                // });
                 
                 oDialog.close();
             });
@@ -61,6 +66,7 @@ sap.ui.define([
 
                     me._loginDialogFragment.then(function (oDialog) {
                         var oModel = new JSONModel({
+                            grant_type: "password",
                             username: "",
                             password: ""
                         });
