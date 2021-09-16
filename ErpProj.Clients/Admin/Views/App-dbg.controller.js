@@ -108,9 +108,8 @@ sap.ui.define([
                     press: function (event) {
                         $.ajax({
                             type: "POST",
-                            url: "http://localhost:6001/security/admin/logoff/",
-                            dataType: "json",
-                        }).done(function (result) {
+                            url: "http://localhost:6001/security/admin/logoff/"
+                        }).done(function () {
                             var oStorage = new Storage(Storage.Type.local, "user_data");
                             oStorage.remove("auth");
                             me.configureAjaxRequest(null);
