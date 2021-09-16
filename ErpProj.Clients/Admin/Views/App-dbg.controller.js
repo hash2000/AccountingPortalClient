@@ -6,8 +6,11 @@ sap.ui.define([
     "sap/m/Button",
     "sap/m/library",
     "sap/ui/core/Fragment",
-    "sap/ui/util/Storage"
-], function (Device, Controller, JSONModel, Popover, Button, library, Fragment, Storage) {
+    "sap/ui/util/Storage",
+    "sap/m/MessagePopover",
+    "sap/m/MessageItem",
+    "sap/ui/core/Core"
+], function (Device, Controller, JSONModel, Popover, Button, library, Fragment, Storage, MessagePopover, MessageItem, Core) {
     "use strict";
 
     var ButtonType = library.ButtonType,
@@ -16,11 +19,84 @@ sap.ui.define([
     return Controller.extend("ErpProj.Home.Views.App", {
 
         onInit: function () {
-            this.oModel = new JSONModel();
-            this.oModel.loadData(sap.ui.require.toUrl("ErpProj/Home/Views/AppModel-dbg.json"), null, false);
-            this.getView().setModel(this.oModel);
-            var oStorage = new Storage(Storage.Type.local, "user_data");
-            this.configureAjaxRequest(oStorage.get("auth"));
+            var me = this,
+                oStorage = new Storage(Storage.Type.local, "user_data");
+
+            me.oModel = new JSONModel();
+            me.oModel.loadData(sap.ui.require.toUrl("ErpProj/Home/Views/AppModel-dbg.json"), null, false);
+            me.getView().setModel(this.oModel);
+
+            me.configureAuthorizationInfo(oStorage.get("auth"));
+
+
+        },
+
+        addPopoverMessage: function (type, message) {
+            var me = this,
+                oView = this.getView(),
+                oShellBar = oView.byId("Application-ShellBar")
+
+            me.createMessagePopover();
+
+            //oShellBar.setNotificationsNumber(3);
+        },
+
+        createMessagePopover: function () {
+            var me = this;
+
+            if (me._messagePopover) {
+                return;
+            }
+
+            me._messagePopover = new MessagePopover({
+                activeTitlePress: function (oEvent) {
+                    var oItem = oEvent.getParameter("item"),
+                        oPage = that.getView().byId("messageHandlingPage"),
+                        oMessage = oItem.getBindingContext("message").getObject(),
+                        oControl = Element.registry.get(oMessage.getControlId());
+
+                    if (oControl) {
+                        oPage.scrollToElement(oControl.getDomRef(), 200, [0, -100]);
+                        setTimeout(function () {
+                            oControl.focus();
+                        }, 300);
+                    }
+                },
+                items: {
+                    path: "message>/",
+                    template: new MessageItem({
+                        title: "{message>message}",
+                        subtitle: "{message>additionalText}",
+                        groupName: {
+                            parts: [{
+                                path: 'message>controlIds'
+                            }],
+                            formatter: me.getGroupName
+                        },
+                        activeTitle: {
+                            parts: [{
+                                path: 'message>controlIds'
+                            }],
+                            formatter: me.isPositionable
+                        },
+                        type: "{message>type}",
+                        description: "{message>message}"
+                    })
+                },
+                groupItems: true
+            });
+
+            me.getView()
+                .byId("Application-Avatar-CurrentUser")
+                .addDependent(me._messagePopover);
+
+        },
+
+        onShellNotificationPress: function (event) {
+            var me = this;
+            me.createMessagePopover();
+            me._messagePopover.toggle(event.getParameters().button);
+
         },
 
         onLoginButtonOkPress: function (event) {
@@ -38,10 +114,11 @@ sap.ui.define([
                 }).done(function (result) {
                     var oStorage = new Storage(Storage.Type.local, "user_data");
                     oStorage.put("auth", result);
+                    me.configureAuthorizationInfo(result);
                 }).fail(function (jqXHR, textStatus) {
                     console.log(textStatus);
                 });
-                
+
             });
         },
 
@@ -51,12 +128,12 @@ sap.ui.define([
             });
         },
 
-        configureAjaxRequest: function (auth_data) {
+        configureAuthorizationInfo: function (auth_data) {
             $.ajaxSetup({
                 crossDomain: true,
                 headers: !auth_data ? {} : {
                     Authorization: "Bearer " + auth_data.access_token
-                } 
+                }
             });
         },
 
@@ -68,7 +145,9 @@ sap.ui.define([
             var oStorage = new Storage(Storage.Type.local, "user_data");
             var auth_data = oStorage.get("auth");
 
-            me.configureAjaxRequest(auth_data);
+            me.configureAuthorizationInfo(auth_data);
+
+            me.addPopoverMessage("Info", "test message");
 
             if (!auth_data) {
 
@@ -112,7 +191,7 @@ sap.ui.define([
                         }).done(function () {
                             var oStorage = new Storage(Storage.Type.local, "user_data");
                             oStorage.remove("auth");
-                            me.configureAjaxRequest(null);
+                            me.configureAuthorizationInfo(null);
                         }).fail(function (jqXHR, textStatus) {
                             console.log(textStatus);
                         });

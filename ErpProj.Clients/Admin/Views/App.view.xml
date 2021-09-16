@@ -10,7 +10,8 @@
 			Панель управления в заголовке
 		-->
 		<tnt:header>
-			<f:ShellBar title="{i18n>appTitle}" 
+			<f:ShellBar id="Application-ShellBar"
+				title="{i18n>appTitle}" 
 				secondTitle="{i18n>appDescription}"
 				showMenuButton="true"
 				homeIcon="./resources/sap/ui/documentation/sdk/images/logo_ui5.png"
@@ -18,9 +19,11 @@
 				showNotifications="true"
 				menuButtonPressed="onMenuButtonPress"
 				showProductSwitcher="false"
-				notificationsNumber="0">
+				notificationsNumber="0"
+				notificationsPressed="onShellNotificationPress"
+				>
 				<f:profile>
-					<Avatar initials="?" press=".onAuthorizationPress"/>
+					<Avatar id="Application-Avatar-CurrentUser" initials="?" press="onAuthorizationPress" />
 				</f:profile>
 			</f:ShellBar>
 		</tnt:header>
