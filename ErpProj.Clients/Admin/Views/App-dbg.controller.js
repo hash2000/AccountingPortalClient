@@ -5,40 +5,74 @@ sap.ui.define([
     "sap/m/Popover",
     "sap/m/Button",
     "sap/m/library",
+    "sap/ui/core/library",
     "sap/ui/core/Fragment",
     "sap/ui/util/Storage",
     "sap/m/MessagePopover",
     "sap/m/MessageItem",
+    "sap/ui/core/message/Message",
     "sap/ui/core/Core"
-], function (Device, Controller, JSONModel, Popover, Button, library, Fragment, Storage, MessagePopover, MessageItem, Core) {
+], function (Device, Controller, JSONModel, Popover, Button, library, coreLibrary, Fragment, Storage, MessagePopover, MessageItem, Message, Core) {
     "use strict";
 
     var ButtonType = library.ButtonType,
-        PlacementType = library.PlacementType;
+        PlacementType = library.PlacementType,
+        MessageType = coreLibrary.MessageType;
 
     return Controller.extend("ErpProj.Home.Views.App", {
 
         onInit: function () {
             var me = this,
-                oStorage = new Storage(Storage.Type.local, "user_data");
+                oStorage = new Storage(Storage.Type.local, "user_data"),
+                oView = me.getView();
 
-            me.oModel = new JSONModel();
-            me.oModel.loadData(sap.ui.require.toUrl("ErpProj/Home/Views/AppModel-dbg.json"), null, false);
-            me.getView().setModel(this.oModel);
+            var oMenuItemsModel = new JSONModel();
+            oMenuItemsModel.loadData(sap.ui.require.toUrl("ErpProj/Home/Views/AppModel-dbg.json"), null, false);
+
+            me._messageManager = Core.getMessageManager();
+            me._messageManager.removeAllMessages();
+
+            oView.setModel(oMenuItemsModel);
+            oView.setModel(me._messageManager.getMessageModel(), "message");
 
             me.configureAuthorizationInfo(oStorage.get("auth"));
-
-
         },
 
-        addPopoverMessage: function (type, message) {
+        checkPopoverMessageCount: function (flush_read_flag) {
             var me = this,
                 oView = this.getView(),
-                oShellBar = oView.byId("Application-ShellBar")
+                oShellBar = oView.byId("Application-ShellBar"),
+                model = me._messageManager.getMessageModel(),
+                data = model.getData();
+
+            var count = 0;
+            data.forEach(function (message) {
+                if (flush_read_flag) {
+                    message.code = true;
+                }
+                if (!message.code) {
+                    count++;
+                }
+            });
+
+            oShellBar.setNotificationsNumber(count);
+        },
+
+        addPopoverMessage: function (type, target, message, additionalText) {
+            var me = this;
 
             me.createMessagePopover();
+            me._messageManager.addMessages(
+                new Message({
+                    message: message,
+                    additionalText: additionalText,
+                    controlIds: target,
+                    type: type,
+                    code: false /* already read */
+                })
+            );
 
-            //oShellBar.setNotificationsNumber(3);
+            me.checkPopoverMessageCount(false);
         },
 
         createMessagePopover: function () {
@@ -65,22 +99,10 @@ sap.ui.define([
                 items: {
                     path: "message>/",
                     template: new MessageItem({
-                        title: "{message>message}",
+                        title: "message>message",
                         subtitle: "{message>additionalText}",
-                        groupName: {
-                            parts: [{
-                                path: 'message>controlIds'
-                            }],
-                            formatter: me.getGroupName
-                        },
-                        activeTitle: {
-                            parts: [{
-                                path: 'message>controlIds'
-                            }],
-                            formatter: me.isPositionable
-                        },
                         type: "{message>type}",
-                        description: "{message>message}"
+                        description: "{message>additionalText}"
                     })
                 },
                 groupItems: true
@@ -96,7 +118,7 @@ sap.ui.define([
             var me = this;
             me.createMessagePopover();
             me._messagePopover.toggle(event.getParameters().button);
-
+            me.checkPopoverMessageCount(true);
         },
 
         onLoginButtonOkPress: function (event) {
@@ -115,8 +137,11 @@ sap.ui.define([
                     var oStorage = new Storage(Storage.Type.local, "user_data");
                     oStorage.put("auth", result);
                     me.configureAuthorizationInfo(result);
+                    me.addPopoverMessage(MessageType.Success, "Authorization",
+                        "Вход в систему", "Пользователь '" + oData.username + "' вошёл в систему");
                 }).fail(function (jqXHR, textStatus) {
-                    console.log(textStatus);
+                    me.addPopoverMessage(MessageType.Error, "Authorization",
+                        "Вход в систему", textStatus);
                 });
 
             });
@@ -135,6 +160,13 @@ sap.ui.define([
                     Authorization: "Bearer " + auth_data.access_token
                 }
             });
+
+            if (!auth_data) {
+                return;
+            }
+
+            
+
         },
 
         onAuthorizationPress: function (event) {
@@ -146,8 +178,6 @@ sap.ui.define([
             var auth_data = oStorage.get("auth");
 
             me.configureAuthorizationInfo(auth_data);
-
-            me.addPopoverMessage("Info", "test message");
 
             if (!auth_data) {
 
@@ -192,8 +222,12 @@ sap.ui.define([
                             var oStorage = new Storage(Storage.Type.local, "user_data");
                             oStorage.remove("auth");
                             me.configureAuthorizationInfo(null);
+                            me.addPopoverMessage(MessageType.Success, "Authorization",
+                                "Выход из системы", "Пользователь вышел из системы");
+
                         }).fail(function (jqXHR, textStatus) {
-                            console.log(textStatus);
+                            me.addPopoverMessage(MessageType.Error, "Authorization",
+                                "Выход из системы", textStatus);
                         });
                     }
                 }));
