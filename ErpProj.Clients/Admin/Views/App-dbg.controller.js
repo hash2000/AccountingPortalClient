@@ -33,7 +33,7 @@ sap.ui.define([
 
             var oRoutesModel = new JSONModel();
             oRoutesModel.loadData(sap.ui.require.toUrl("ErpProj/Home/routes.json"), null, false);
-            oView.setModel(oRoutesModel, "routes");
+            Core.setModel(oRoutesModel, "routes");           
 
             me.configureAuthorizationInfo();
         },
@@ -125,15 +125,14 @@ sap.ui.define([
             var me = this;
             me._loginDialogFragment.then(function (oDialog) {
                 var oData = oDialog.getModel().getData(),
-                    appView = me.getView(),
-                    routesData = appView.getModel("routes").getData();
+                    routesData = Core.getModel("routes").getData();
                 
-                var ajaxOptions = routesData.authorization.login;
-                ajaxOptions.data = oData;
-
-                oDialog.close();
-
+                var ajaxOptions = $.extend(routesData.authorization.login, {
+                    data: oData
+                })
+                
                 $.ajax(ajaxOptions).done(function (result) {
+                    oDialog.close();
                     me._userDataStorage.put("auth", result);
                     me.configureAuthorizationInfo();
                     me.addPopoverMessage(MessageType.Success, "Authorization",
@@ -143,7 +142,6 @@ sap.ui.define([
                         "Вход в систему", textStatus);
                 });
 
-                delete ajaxOptions.data;
             });
         },
 
@@ -229,8 +227,7 @@ sap.ui.define([
                     text: "Выход",
                     type: ButtonType.Transparent,
                     press: function (event) {
-                        var appView = me.getView(),
-                            routesData = appView.getModel("routes").getData();
+                        var routesData = Core.getModel("routes").getData();
                         var ajaxOptions = routesData.authorization.logoff;
                         $.ajax(ajaxOptions).done(function () {
                             me._userDataStorage.remove("auth");
