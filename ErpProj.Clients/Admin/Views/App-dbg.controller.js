@@ -1,18 +1,18 @@
 sap.ui.define([
     "sap/ui/Device",
     "sap/ui/core/mvc/Controller",
+    "sap/ui/core/library",
+    "sap/ui/core/Fragment",
+    "sap/ui/core/Core",
+    "sap/ui/core/message/Message" ,
     "sap/ui/model/json/JSONModel",
     "sap/m/Popover",
     "sap/m/Button",
-    "sap/m/library",
-    "sap/ui/core/library",
-    "sap/ui/core/Fragment",
+    "sap/m/library",    
     "sap/ui/util/Storage",
     "sap/m/MessagePopover",
-    "sap/m/MessageItem",
-    "sap/ui/core/message/Message",
-    "sap/ui/core/Core"
-], function (Device, Controller, JSONModel, Popover, Button, library, coreLibrary, Fragment, Storage, MessagePopover, MessageItem, Message, Core) {
+    "sap/m/MessageItem"   
+], function (Device, Controller, coreLibrary, Fragment, Core, Message, JSONModel, Popover, Button, library, Storage, MessagePopover, MessageItem) {
     "use strict";
 
     var ButtonType = library.ButtonType,
