@@ -9,5 +9,10 @@
             "url": "http://localhost:6001/security/admin/logoff/",
             "method": "POST"
         }
+    },
+    "profiles": {
+        "get": {
+            "url": "http://localhost:6001/security/profiles/"
+        }
     }
 }
