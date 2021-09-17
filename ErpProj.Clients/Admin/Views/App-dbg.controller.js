@@ -27,7 +27,7 @@ sap.ui.define([
                 oView = me.getView();
 
             var oMenuItemsModel = new JSONModel();
-            oMenuItemsModel.loadData(sap.ui.require.toUrl("ErpProj/Home/Views/AppModel-dbg.json"), null, false);
+            oMenuItemsModel.loadData(sap.ui.require.toUrl("ErpProj/Home/navigation-menu.json"), null, false);
 
             me._messageManager = Core.getMessageManager();
             me._messageManager.removeAllMessages();
@@ -99,7 +99,7 @@ sap.ui.define([
                 items: {
                     path: "message>/",
                     template: new MessageItem({
-                        title: "message>message",
+                        title: "{message>message}",
                         subtitle: "{message>additionalText}",
                         type: "{message>type}",
                         description: "{message>additionalText}"
