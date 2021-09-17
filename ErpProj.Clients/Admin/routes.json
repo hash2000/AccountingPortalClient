@@ -1,0 +1,13 @@
+{
+    "authorization": {
+        "login": {
+            "url": "http://localhost:6001/security/admin/auth/",
+            "method": "POST",
+            "dataType": "json"
+        },
+        "logoff": {
+            "url": "http://localhost:6001/security/admin/logoff/",
+            "method": "POST"
+        }
+    }
+}

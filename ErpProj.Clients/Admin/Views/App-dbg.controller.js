@@ -25,11 +25,15 @@ sap.ui.define([
             var me = this,
                 oView = me.getView();
 
-            me._userDataStorage = new Storage(Storage.Type.local, "user_data");
+            me._userDataStorage = new Storage(Storage.Type.local, "user_data");           
 
             me._messageManager = Core.getMessageManager();
             me._messageManager.removeAllMessages();
             oView.setModel(me._messageManager.getMessageModel(), "message");
+
+            var oRoutesModel = new JSONModel();
+            oRoutesModel.loadData(sap.ui.require.toUrl("ErpProj/Home/routes.json"), null, false);
+            oView.setModel(oRoutesModel, "routes");
 
             me.configureAuthorizationInfo();
         },
@@ -120,16 +124,16 @@ sap.ui.define([
         onLoginButtonOkPress: function (event) {
             var me = this;
             me._loginDialogFragment.then(function (oDialog) {
-                var oModel = oDialog.getModel(),
-                    oData = oModel.getData();
+                var oData = oDialog.getModel().getData(),
+                    appView = me.getView(),
+                    routesData = appView.getModel("routes").getData();
+                
+                var ajaxOptions = routesData.authorization.login;
+                ajaxOptions.data = oData;
+
                 oDialog.close();
 
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:6001/security/admin/auth/",
-                    dataType: "json",
-                    data: oData
-                }).done(function (result) {
+                $.ajax(ajaxOptions).done(function (result) {
                     me._userDataStorage.put("auth", result);
                     me.configureAuthorizationInfo();
                     me.addPopoverMessage(MessageType.Success, "Authorization",
@@ -139,6 +143,7 @@ sap.ui.define([
                         "Вход в систему", textStatus);
                 });
 
+                delete ajaxOptions.data;
             });
         },
 
@@ -224,10 +229,10 @@ sap.ui.define([
                     text: "Выход",
                     type: ButtonType.Transparent,
                     press: function (event) {
-                        $.ajax({
-                            type: "POST",
-                            url: "http://localhost:6001/security/admin/logoff/"
-                        }).done(function () {
+                        var appView = me.getView(),
+                            routesData = appView.getModel("routes").getData();
+                        var ajaxOptions = routesData.authorization.logoff;
+                        $.ajax(ajaxOptions).done(function () {
                             me._userDataStorage.remove("auth");
                             me.configureAuthorizationInfo();
                             me.addPopoverMessage(MessageType.Success, "Authorization",
