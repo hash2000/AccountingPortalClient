@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" displayBlock="true">
 
-	<tnt:ToolPage id="toolPage" sideExpanded="true">
+	<tnt:ToolPage id="Application-ToolPage" sideExpanded="false">
 
 		<!--
 			Панель управления в заголовке

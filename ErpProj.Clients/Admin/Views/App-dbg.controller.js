@@ -23,19 +23,15 @@ sap.ui.define([
 
         onInit: function () {
             var me = this,
-                oStorage = new Storage(Storage.Type.local, "user_data"),
                 oView = me.getView();
 
-            var oMenuItemsModel = new JSONModel();
-            oMenuItemsModel.loadData(sap.ui.require.toUrl("ErpProj/Home/navigation-menu.json"), null, false);
+            me._userDataStorage = new Storage(Storage.Type.local, "user_data");
 
             me._messageManager = Core.getMessageManager();
             me._messageManager.removeAllMessages();
-
-            oView.setModel(oMenuItemsModel);
             oView.setModel(me._messageManager.getMessageModel(), "message");
 
-            me.configureAuthorizationInfo(oStorage.get("auth"));
+            me.configureAuthorizationInfo();
         },
 
         checkPopoverMessageCount: function (flush_read_flag) {
@@ -134,11 +130,10 @@ sap.ui.define([
                     dataType: "json",
                     data: oData
                 }).done(function (result) {
-                    var oStorage = new Storage(Storage.Type.local, "user_data");
-                    oStorage.put("auth", result);
-                    me.configureAuthorizationInfo(result);
+                    me._userDataStorage.put("auth", result);
+                    me.configureAuthorizationInfo();
                     me.addPopoverMessage(MessageType.Success, "Authorization",
-                        "Вход в систему", "Пользователь '" + oData.username + "' вошёл в систему");
+                        "Вход в систему", "Пользователь '" + oData.username + "' вошёл в систему");                    
                 }).fail(function (jqXHR, textStatus) {
                     me.addPopoverMessage(MessageType.Error, "Authorization",
                         "Вход в систему", textStatus);
@@ -153,7 +148,13 @@ sap.ui.define([
             });
         },
 
-        configureAuthorizationInfo: function (auth_data) {
+        configureAuthorizationInfo: function () {
+            var me = this,
+                oView = me.getView(),
+                oToolPage = me.byId("Application-ToolPage"),
+                auth_data = me._userDataStorage.get("auth");
+            
+
             $.ajaxSetup({
                 crossDomain: true,
                 headers: !auth_data ? {} : {
@@ -161,23 +162,31 @@ sap.ui.define([
                 }
             });
 
-            if (!auth_data) {
-                return;
-            }
-
             
+            if (!auth_data) {
+                var oNavigationModel = oView.getModel();
+                if (oNavigationModel) {
+                    oNavigationModel.setData(null, false);
+                }
+                oToolPage.setSideExpanded(false);
+            }
+            else {
+                var oNavigationModel = new JSONModel();
+                oNavigationModel.loadData(sap.ui.require.toUrl("ErpProj/Home/navigation-menu.json"), null, false);
+                oView.setModel(oNavigationModel);
 
+                oToolPage.setSideExpanded(true);
+            }            
+         
         },
 
         onAuthorizationPress: function (event) {
-            var buttons = [];
-            var me = this;
-            var oView = me.getView();
+            var buttons = [],
+                me = this,
+                oView = me.getView();
 
-            var oStorage = new Storage(Storage.Type.local, "user_data");
-            var auth_data = oStorage.get("auth");
-
-            me.configureAuthorizationInfo(auth_data);
+            var auth_data = me._userDataStorage.get("auth");
+            // me.configureAuthorizationInfo();
 
             if (!auth_data) {
 
@@ -219,12 +228,10 @@ sap.ui.define([
                             type: "POST",
                             url: "http://localhost:6001/security/admin/logoff/"
                         }).done(function () {
-                            var oStorage = new Storage(Storage.Type.local, "user_data");
-                            oStorage.remove("auth");
-                            me.configureAuthorizationInfo(null);
+                            me._userDataStorage.remove("auth");
+                            me.configureAuthorizationInfo();
                             me.addPopoverMessage(MessageType.Success, "Authorization",
-                                "Выход из системы", "Пользователь вышел из системы");
-
+                                "Выход из системы", "Пользователь вышел из системы");                            
                         }).fail(function (jqXHR, textStatus) {
                             me.addPopoverMessage(MessageType.Error, "Authorization",
                                 "Выход из системы", textStatus);
@@ -254,8 +261,15 @@ sap.ui.define([
         },
 
         onMenuButtonPress: function () {
-            var toolPage = this.byId("toolPage");
-            toolPage.setSideExpanded(!toolPage.getSideExpanded());
+            var me = this,
+                oToolPage = me.byId("Application-ToolPage");
+            
+            if (!me._userDataStorage.get("auth")) {
+                return;
+            }
+
+            me.byId("Application-ToolPage")
+                .setSideExpanded(!toolPage.getSideExpanded());
         }
     });
 });
