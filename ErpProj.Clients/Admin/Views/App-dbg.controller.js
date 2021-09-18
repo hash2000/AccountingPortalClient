@@ -25,7 +25,7 @@ sap.ui.define([
             var me = this,
                 oView = me.getView();
 
-            me._userDataStorage = new Storage(Storage.Type.local, "user_data");           
+            Core._userDataStorage = new Storage(Storage.Type.local, "user_data");      
 
             me._messageManager = Core.getMessageManager();
             me._messageManager.removeAllMessages();
@@ -133,7 +133,7 @@ sap.ui.define([
                 
                 $.ajax(ajaxOptions).done(function (result) {
                     oDialog.close();
-                    me._userDataStorage.put("auth", result);
+                    Core._userDataStorage.put("auth", result);
                     me.configureAuthorizationInfo();
                     me.addPopoverMessage(MessageType.Success, "Authorization",
                         "Вход в систему", "Пользователь '" + oData.username + "' вошёл в систему");                    
@@ -155,7 +155,7 @@ sap.ui.define([
             var me = this,
                 oView = me.getView(),
                 oToolPage = me.byId("Application-ToolPage"),
-                auth_data = me._userDataStorage.get("auth");
+                auth_data = Core._userDataStorage.get("auth");
             
 
             $.ajaxSetup({
@@ -188,7 +188,7 @@ sap.ui.define([
                 me = this,
                 oView = me.getView();
 
-            var auth_data = me._userDataStorage.get("auth");
+            var auth_data = Core._userDataStorage.get("auth");
             // me.configureAuthorizationInfo();
 
             if (!auth_data) {
@@ -230,7 +230,7 @@ sap.ui.define([
                         var routesData = Core.getModel("routes").getData();
                         var ajaxOptions = routesData.authorization.logoff;
                         $.ajax(ajaxOptions).done(function () {
-                            me._userDataStorage.remove("auth");
+                            Core._userDataStorage.remove("auth");
                             me.configureAuthorizationInfo();
                             me.addPopoverMessage(MessageType.Success, "Authorization",
                                 "Выход из системы", "Пользователь вышел из системы");                            
@@ -264,14 +264,13 @@ sap.ui.define([
 
         onMenuButtonPress: function () {
             var me = this,
-                oToolPage = me.byId("Application-ToolPage");
+                toolPage = me.byId("Application-ToolPage");
             
-            if (!me._userDataStorage.get("auth")) {
+            if (!Core._userDataStorage.get("auth")) {
                 return;
             }
 
-            me.byId("Application-ToolPage")
-                .setSideExpanded(!toolPage.getSideExpanded());
+            toolPage.setSideExpanded(!toolPage.getSideExpanded());
         }
     });
 });

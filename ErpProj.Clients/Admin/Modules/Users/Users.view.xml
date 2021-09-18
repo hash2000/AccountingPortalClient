@@ -2,5 +2,93 @@
     controllerName="ErpProj.Modules.Users.Users"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc">
-    <List></List>
+    <Table
+      id="ProfilesTable"
+      items="{
+      path: '/items',
+      sorter: 'FillName',
+			parameters: {
+				$count: true
+			}
+    }"
+      headerText="{i18n>tableProfilesHeader}"
+      growing="true"
+      growingThreshold="10"
+      mode="SingleSelectLeft">
+      <headerToolbar>
+        <OverflowToolbar>
+          <content>
+            <ToolbarSpacer/>
+            <SearchField
+              id="searchField"
+              width="20%"
+              placeholder="{i18n>searchFieldPlaceholder}"
+              search="onSearch"/>
+            <Button
+              id="addProfileButton"
+              icon="sap-icon://add"
+              tooltip="{i18n>createButtonText}"
+              press="onCreate">
+              <layoutData>
+                <OverflowToolbarLayoutData priority="NeverOverflow"/>
+              </layoutData>
+            </Button>
+            <Button
+						  id="deleteProfileButton"
+						  icon="sap-icon://delete"
+						  tooltip="{i18n>deleteButtonText}"
+						  press="onDelete">
+              <layoutData>
+                <OverflowToolbarLayoutData priority="NeverOverflow"/>
+              </layoutData>
+            </Button>
+            <Button
+              id="refreshProfilesButton"
+              icon="sap-icon://refresh"
+              tooltip="{i18n>refreshButtonText}"
+              press="onRefresh"/>
+            <Button
+              id="sortProfilesButton"
+              press="onSort"
+              tooltip="{i18n>sortButtonText}"
+              icon="sap-icon://sort"/>
+          </content>
+        </OverflowToolbar>
+      </headerToolbar>
+
+      <columns>
+        <Column id="Id">
+          <Text text="Id"/>
+        </Column>
+        <Column id="FullName">
+          <Text text="FullName"/>
+        </Column>
+        <Column id="Email">
+          <Text text="Email"/>
+        </Column>
+        <Column id="Login">
+          <Text text="Login"/>
+        </Column>
+      </columns>
+
+      <items>
+        <ColumnListItem>
+          <cells>
+            <Input value="{Id}"/>
+          </cells>
+          <cells>
+            <Input value="{FullName}"/>
+          </cells>
+          <cells>
+            <Input value="{Email}"/>
+          </cells>
+          <cells>
+            <Input
+              value="{Login}"
+              valueLiveUpdate="true"
+              liveChange="onInputChange"/>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
 </mvc:View>
