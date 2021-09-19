@@ -1,4 +1,5 @@
 {
     "ui5-tools.srcFolder": "ErpProj.Clients\\Home",
-    "ui5-tools.libraryFolder": "ErpProj.Common\\Scripts\\sapui5"
+    "ui5-tools.libraryFolder": "ErpProj.Common\\Scripts\\sapui5",
+    "ui5ts.manifestlocation": "ErpProj.Clients\\Admin\\manifest.json"
 }

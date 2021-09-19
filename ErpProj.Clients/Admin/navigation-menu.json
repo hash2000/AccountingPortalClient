@@ -1,27 +1,35 @@
 {
-    "selectedKey": "Overview",
-    "navigation": [{
-        "title": "Пользователи",
-        "icon": "sap-icon://employee",
-        "expanded": true,
-        "key": "Users"
-    }, {
-        "title": "Портал",
-        "icon": "sap-icon://menu",
-        "expanded": true,
-        "key": "Overview",
-        "items": [{
-            "title": "Узлы меню",
-            "icon": "sap-icon://account",
-            "key": "MenuItems"
-        }, {
-            "title": "Группы и роли",
-            "icon": "sap-icon://group",
-            "key": "GroupsAndRoles"
-        }]
-    }],
-    "fixedNavigation": [{
-            "title": "Настройки",
-            "icon": "sap-icon://action-settings"
-    }]
+  "selectedKey": "Overview",
+  "navigation": [
+    {
+      "title": "Пользователи",
+      "icon": "sap-icon://employee",
+      "expanded": true,
+      "key": "Profiles"
+    },
+    {
+      "title": "Портал",
+      "icon": "sap-icon://menu",
+      "expanded": true,
+      "key": "Overview",
+      "items": [
+        {
+          "title": "Узлы меню",
+          "icon": "sap-icon://account",
+          "key": "MenuItems"
+        },
+        {
+          "title": "Группы и роли",
+          "icon": "sap-icon://group",
+          "key": "GroupsAndRoles"
+        }
+      ]
+    }
+  ],
+  "fixedNavigation": [
+    {
+      "title": "Настройки",
+      "icon": "sap-icon://action-settings"
+    }
+  ]
 }
