@@ -1,13 +1,14 @@
 <mvc:View controllerName="ErpProj.Modules.Profiles.Profiles"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc">
-  <Table id="ProfilesTable" items="{
-      path: '/items',
-      sorter: 'FillName',
-			parameters: {
-				$count: true
-			}
-    }" headerText="{i18n>tableProfilesHeader}" growing="true" growingThreshold="10" mode="SingleSelectLeft">
+  <List 
+    id="ProfilesTable"
+    items="{/Security/Profile}" 
+    growing="true"
+		growingThreshold="10"
+		busyIndicatorDelay="500"
+		enableBusyIndicator="true"
+		noDataText="No profiles available">
     <headerToolbar>
       <OverflowToolbar>
         <content>
@@ -28,37 +29,10 @@
         </content>
       </OverflowToolbar>
     </headerToolbar>
-
-    <columns>
-      <Column id="Id">
-        <Text text="Id"/>
-      </Column>
-      <Column id="FullName">
-        <Text text="FullName"/>
-      </Column>
-      <Column id="Email">
-        <Text text="Email"/>
-      </Column>
-      <Column id="Login">
-        <Text text="Login"/>
-      </Column>
-    </columns>
-
-    <items>
-      <ColumnListItem>
-        <cells>
-          <Input value="{Id}"/>
-        </cells>
-        <cells>
-          <Input value="{FullName}"/>
-        </cells>
-        <cells>
-          <Input value="{Email}"/>
-        </cells>
-        <cells>
-          <Input value="{Login}" valueLiveUpdate="true" liveChange="onInputChange"/>
-        </cells>
-      </ColumnListItem>
-    </items>
-  </Table>
+    <StandardListItem
+			title="{Login}"
+			description="{FullName}"
+			iconDensityAware="false"
+			iconInset="false" />
+  </List>
 </mvc:View>

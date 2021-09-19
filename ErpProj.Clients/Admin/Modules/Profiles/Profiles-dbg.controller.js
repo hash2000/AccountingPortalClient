@@ -5,12 +5,11 @@ sap.ui.define(
     "sap/ui/core/Core",
     "sap/m/library",
     "sap/m/MessageBox",
-    "sap/ui/model/odata/v2/ODataModel",
-    "sap/ui/model/json/JSONModel",
     "sap/ui/model/Sorter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/FilterType",
+    "ErpProj/Models/SecurityModel",
   ],
   function (
     Device,
@@ -18,32 +17,20 @@ sap.ui.define(
     Core,
     mobileLibrary,
     MessageBox,
-    ODataModel,
-    JSONModel,
     Sorter,
     Filter,
     FilterOperator,
-    FilterType
+    FilterType,
+    SecurityModel
   ) {
     "use strict";
 
     return Controller.extend("ErpProj.Modules.Profiles.Profiles", {
       onInit: function () {
         var me = this,
-          oView = me.getView(),
-          routesData = Core.getModel("routes").getData();
+          oView = me.getView();
 
-        //var profilesModel = new ODataModel(routesData.profiles.get.url);
-        //var auth_data = Core._userDataStorage.get("auth");
-        //if (auth_data) {
-        //    profilesModel.setHeaders({
-        //        Authorization: "Bearer " + auth_data.access_token
-        //    });
-        //}
-
-        var profilesModel = new JSONModel(routesData.profiles.get.url);
-
-        oView.setModel(profilesModel);
+        oView.setModel(SecurityModel);
       },
 
       onExit: function () {
@@ -52,15 +39,8 @@ sap.ui.define(
       },
 
       onRefresh: function () {
-        var oView = this.getView(),
-          oBinding = oView.byId("ProfilesTable").getBinding("items");
-        if (oBinding) {
-          //if (oBinding.hasPendingChanges()) {
-          //    MessageBox.error("Before refreshing, please save or revert your changes");
-          //    return;
-          //}
-          oBinding.refresh(true);
-        }
+        var oView = this.getView();
+        oView.getModel().refresh(true);
       },
 
       onSearch: function () {

@@ -87,7 +87,7 @@ sap.ui.define(
             additionalText: additionalText,
             controlIds: target,
             type: type,
-            code: false /* already read */,
+            code: false /* already read */ ,
           })
         );
 
@@ -186,11 +186,11 @@ sap.ui.define(
 
         $.ajaxSetup({
           crossDomain: true,
-          headers: !auth_data
-            ? {}
-            : {
-                Authorization: "Bearer " + auth_data.access_token,
-              },
+          headers: !auth_data ?
+            {} :
+            {
+              Authorization: "Bearer " + auth_data.access_token,
+            },
         });
 
         if (!auth_data) {

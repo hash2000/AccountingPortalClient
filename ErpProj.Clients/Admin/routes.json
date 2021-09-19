@@ -10,9 +10,9 @@
             "method": "POST"
         }
     },
-    "profiles": {
+    "security": {
         "get": {
-            "url": "http://localhost:6001/security/profiles/"
+            "url": "http://localhost:6001/"
         }
     }
 }
