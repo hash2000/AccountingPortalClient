@@ -3,7 +3,7 @@
   xmlns:mvc="sap.ui.core.mvc">
   <List 
     id="ProfilesTable"
-    items="{/Security/Profile}" 
+    items="{/Profiles}" 
     growing="true"
 		growingThreshold="10"
 		busyIndicatorDelay="500"
@@ -31,7 +31,7 @@
     </headerToolbar>
     <StandardListItem
 			title="{Login}"
-			description="{FullName}"
+			description="{FullName} [Id: {Id}, Email: {Email}]"
 			iconDensityAware="false"
 			iconInset="false" />
   </List>
