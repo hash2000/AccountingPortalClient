@@ -50,7 +50,7 @@ sap.ui.define(
 
         oView
           .byId("ProfilesTable")
-          .getBinding("items")
+          .getBinding("Profiles")
           .filter(oFilter, FilterType.Application);
       },
 
@@ -61,20 +61,30 @@ sap.ui.define(
       onInputChange: function () {},
 
       onDelete: function () {
-        var oSelected = this.getView().byId("ProfilesTable").getSelectedItem();
-
+        var view = this.getView(),
+          model = view.getModel(),
+          oSelected = view.byId("ProfilesTable").getSelectedItem();
         if (oSelected) {
-          oSelected
-            .getBindingContext()
-            .delete("$auto")
-            .then(
-              function () {
-                MessageToast.show(this._getText("deletionSuccessMessage"));
-              }.bind(this),
-              function (oError) {
-                MessageBox.error(oError.message);
-              }
-            );
+          var context = oSelected.getBindingContext(),
+            path = "/Profile" + context.getPath(),
+            oBundle = view.getModel("i18n").getResourceBundle();
+
+          var onCloseAction = function (oAction) {
+            if (oAction == MessageBox.Action.YES) {
+              model.remove(path);
+            }
+          };
+
+          MessageBox.show(
+            oBundle.getText("removeProfileTitleDetails", [context.getProperty("FullName")]), {
+              icon: MessageBox.Icon.INFORMATION,
+              title: oBundle.getText("removeProfileTitle"),
+              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+              emphasizedAction: MessageBox.Action.YES,
+              onClose: onCloseAction
+            }
+          );
+
         }
       },
     });

@@ -4,6 +4,7 @@
   <List 
     id="ProfilesTable"
     items="{/Profiles}" 
+    mode="SingleSelectMaster"
     growing="true"
 		growingThreshold="10"
 		busyIndicatorDelay="500"
@@ -13,22 +14,44 @@
       <OverflowToolbar>
         <content>
           <ToolbarSpacer/>
-          <SearchField id="searchField" width="20%" placeholder="{i18n>searchFieldPlaceholder}" search="onSearch"/>
-          <Button id="addProfileButton" icon="sap-icon://add" tooltip="{i18n>createButtonText}" press="onCreate">
+
+          <SearchField id="searchField" 
+            width="50%" 
+            placeholder="{i18n>searchProfileFieldPlaceholder}" 
+            search="onSearch"/>
+
+          <Button id="addProfileButton"
+            icon="sap-icon://add" 
+            tooltip="{i18n>createButtonText}" 
+            press="onCreate">
             <layoutData>
               <OverflowToolbarLayoutData priority="NeverOverflow"/>
             </layoutData>
           </Button>
-          <Button id="deleteProfileButton" icon="sap-icon://delete" tooltip="{i18n>deleteButtonText}" press="onDelete">
+
+          <Button id="deleteProfileButton" 
+            icon="sap-icon://delete"
+            tooltip="{i18n>deleteButtonText}" 
+            press="onDelete">
             <layoutData>
               <OverflowToolbarLayoutData priority="NeverOverflow"/>
             </layoutData>
           </Button>
-          <Button id="refreshProfilesButton" icon="sap-icon://refresh" tooltip="{i18n>refreshButtonText}" press="onRefresh"/>
-          <Button id="sortProfilesButton" press="onSort" tooltip="{i18n>sortButtonText}" icon="sap-icon://sort"/>
+
+          <Button id="refreshProfilesButton" 
+            icon="sap-icon://refresh"
+            tooltip="{i18n>refreshButtonText}" 
+            press="onRefresh"/>
+
+          <Button id="sortProfilesButton" 
+            press="onSort" 
+            tooltip="{i18n>sortButtonText}" 
+            icon="sap-icon://sort"/>
+
         </content>
       </OverflowToolbar>
     </headerToolbar>
+
     <StandardListItem
 			title="{Login}"
 			description="{FullName} [Id: {Id}, Email: {Email}]"
