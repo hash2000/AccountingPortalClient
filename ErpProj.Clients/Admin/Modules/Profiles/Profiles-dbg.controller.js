@@ -29,7 +29,6 @@ sap.ui.define(
       onInit: function () {
         var me = this,
           oView = me.getView();
-
         oView.setModel(SecurityModel);
       },
 
@@ -39,19 +38,29 @@ sap.ui.define(
       },
 
       onRefresh: function () {
-        var oView = this.getView();
+        var oView = this.getView(),
+          oItems = oView.byId("ProfilesTable").getBinding("items");
+        oItems.filter(null, FilterType.Application);
         oView.getModel().refresh(true);
       },
 
       onSearch: function () {
         var oView = this.getView(),
-          sValue = oView.byId("searchField").getValue(),
-          oFilter = new Filter("FullName", FilterOperator.Contains, sValue);
+          sQuery = oView.byId("searchField").getValue(),
+          oItems = oView.byId("ProfilesTable").getBinding("items"),
+          oFilters = null;
 
-        oView
-          .byId("ProfilesTable")
-          .getBinding("Profiles")
-          .filter(oFilter, FilterType.Application);
+        if (sQuery && sQuery.length > 0) {
+          oFilters = new Filter({
+            filters: [
+              new Filter("FullName", FilterOperator.Contains, sQuery),
+              new Filter("Login", FilterOperator.Contains, sQuery)
+            ],
+            and: false
+          });
+        }        
+
+        oItems.filter(oFilters, FilterType.Application);
       },
 
       onSort: function () {},
