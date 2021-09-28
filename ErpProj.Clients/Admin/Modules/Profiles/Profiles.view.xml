@@ -3,7 +3,7 @@
   xmlns:mvc="sap.ui.core.mvc">
   <List 
     id="ProfilesTable"
-    items="{/Profiles}" 
+    items="{/items}" 
     mode="SingleSelectMaster"
     growing="true"
 		growingThreshold="10"

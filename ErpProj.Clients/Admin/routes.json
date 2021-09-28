@@ -11,8 +11,10 @@
         }
     },
     "security": {
-        "get": {
-            "url": "http://localhost:6001/Security/"
+        "profiles": {
+            "url": "http://localhost:6001/security/profiles/",
+            "method": "GET",
+            "dataType": "json"
         }
     }
 }
