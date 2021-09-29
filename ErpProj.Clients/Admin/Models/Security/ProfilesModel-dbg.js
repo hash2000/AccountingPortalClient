@@ -12,7 +12,7 @@ sap.ui.define(
     "use strict";
 
     // var auth_data = Core._userDataStorage.get("auth");
-    // var routes_data = Core.getModel("routes").getData();
+    var _routesData = Core.getModel("routes").getData();
     // var model = new ODataModel({
     //   serviceUrl: routesData.security.get.url,
     //   synchronizationMode: "None",
@@ -23,7 +23,7 @@ sap.ui.define(
     //   }
     // });
 
-    //routes_data.security.profiles.url
+    //_routesData.security.profiles.url
 
     var ProfilesModel = JSONModel.extend("ErpProj.Models.Security.ProfilesModel", {
 
@@ -31,6 +31,8 @@ sap.ui.define(
         JSONModel.apply(this, arguments);
         
         this.mPageSize = 25;
+        this.nCurrentPage = 0;
+        this.pFilters = null;
 
         if (mParameters) {
           this.mPageSize = mParameters.pageSize;
@@ -40,7 +42,10 @@ sap.ui.define(
 
       metadata: {
         publicMethods: [
-          "loadPage"
+          "loadPage",
+          "reload",
+          "setFilters",
+          "dropFilters"
         ]
       }
 
@@ -48,7 +53,30 @@ sap.ui.define(
 
     ProfilesModel.prototype.loadPage = function (page) {
       
+      var parameters = {
+        skip: this.mPageSize * page,
+        limit: this.mPageSize
+      };
+
+      if (this.pFilters) {
+        parameters.filters = this.pFilters
+      }
+
+      this.loadData(_routesData.security.profiles.url, parameters);
+      this.nCurrentPage = page;
     };
+
+    ProfilesModel.prototype.reload = function () {
+      this.loadPage(this.nCurrentPage);
+    };
+    
+    ProfilesModel.prototype.setFilters = function (filters) {      
+      this.pFilters = filters;
+    },
+      
+    ProfilesModel.prototype.dropFilters = function () {
+      this.pFilters = null;
+    }
 
     return ProfilesModel;
   }

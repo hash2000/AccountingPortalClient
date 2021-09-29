@@ -40,29 +40,17 @@ sap.ui.define(
       },
 
       onRefresh: function () {
-        // var oView = this.getView(),
-        //   oItems = oView.byId("ProfilesTable").getBinding("items");
-        // oItems.filter(null, FilterType.Application);
-        // oView.getModel().refresh(true);
+        this.getView().getModel().reload();
       },
 
       onSearch: function () {
-        // var oView = this.getView(),
-        //   sQuery = oView.byId("searchField").getValue(),
-        //   oItems = oView.byId("ProfilesTable").getBinding("items"),
-        //   oFilters = null;
-
-        // if (sQuery && sQuery.length > 0) {
-        //   oFilters = new Filter({
-        //     filters: [
-        //       new Filter("FullName", FilterOperator.Contains, sQuery),
-        //       new Filter("Login", FilterOperator.Contains, sQuery)
-        //     ],
-        //     and: false
-        //   });
-        // }        
-
-        // oItems.filter(oFilters, FilterType.Application);
+        var oView = this.getView(),
+          oModel = oView.getModel(),
+          sQuery = oView.byId("searchField").getValue();        
+        if (sQuery && sQuery.length > 0) {
+          oModel.setFilters(sQuery);
+          oModel.loadPage(0);
+        }
       },
 
       onSort: function () {},
